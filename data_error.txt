@@ -1,0 +1,15 @@
+aaaaaaaaaaaaaahhhh
+ad
+ad
+esta linea produce error por no ser un número
+ad
+ad
+ad
+ad
+5.0
+ad
+ad
+ad
+ad
+5.0
+ad
