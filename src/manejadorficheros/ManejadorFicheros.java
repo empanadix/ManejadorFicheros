@@ -85,7 +85,7 @@ public class ManejadorFicheros extends Application {
             System.err.println("IOException: " + ioe.getMessage());
         }
         
-        //Ahora el binario
+        //Ahora el binario PRUEBA
         try(DataOutputStream dos=new DataOutputStream(new FileOutputStream("datos.bin",false));){
             
             for (int i = 0; i < myList.size()-4; i+=5) {
