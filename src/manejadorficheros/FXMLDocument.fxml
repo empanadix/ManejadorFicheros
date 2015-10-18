@@ -1,3 +1,6 @@
+<!--Fecha ultima modificacion: 18/10/2015 -->
+<!--Version: 0.02 -->
+<!--By: Bruno -->
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
@@ -16,6 +19,27 @@
                   <MenuItem mnemonicParsing="false" onAction="#exit" text="Salir" />
                </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Configuración">
+               <items>
+                  <Menu mnemonicParsing="false" text="Leer como...">
+                    <items>
+                        <RadioMenuItem mnemonicParsing="false" selected="true" text="Leer texto plano" />
+                        <RadioMenuItem mnemonicParsing="false" text="Leer texto binario" />
+                        <RadioMenuItem mnemonicParsing="false" text="Leer texto  XML SAX" />
+                        <RadioMenuItem mnemonicParsing="false" text="Leer texto  XML DOM" />
+                        <RadioMenuItem mnemonicParsing="false" text="Leer de BBDD" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Leer como...">
+                     <items>
+                        <RadioMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                        <RadioMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                        <RadioMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                        <RadioMenuItem mnemonicParsing="false" text="Unspecified Action" />
+                     </items>
+                  </Menu>
+               </items>
+            </Menu>
             <Menu mnemonicParsing="false" text="Ayuda">
                 <items>
                     <MenuItem fx:id="miAyudaAcercaDe" mnemonicParsing="false" onAction="#showAcercaDe" text="Acerca de" />
@@ -31,23 +55,26 @@
             <Button fx:id="btCagar" layoutX="25.0" layoutY="283.0" mnemonicParsing="false" onAction="#addFileContent" text="Cargar" />
          </children>
       </Pane>
-      <Pane fx:id="panelNuevo" blendMode="DARKEN" layoutX="14.0" layoutY="29.0" prefHeight="350.0" prefWidth="294.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
+      <Pane fx:id="panelNuevo" blendMode="DARKEN" layoutY="29.0" prefHeight="350.0" prefWidth="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
          <children>
-            <Label layoutX="38.0" layoutY="41.0" text="Nombre" />
-            <Label layoutX="29.0" layoutY="91.0" text="Descripcion" />
-            <Label layoutX="40.0" layoutY="141.0" text="Version" />
-            <Label layoutX="43.0" layoutY="194.0" text="Precio" />
-            <Label layoutX="32.0" layoutY="243.0" text="Requisitos" />
-            <TextField fx:id="nombre" layoutX="105.0" layoutY="37.0" />
-            <TextField fx:id="descripcion" layoutX="105.0" layoutY="87.0" />
-            <TextField fx:id="version" layoutX="105.0" layoutY="137.0" />
-            <TextField fx:id="precio" layoutX="105.0" layoutY="190.0" />
-            <TextField fx:id="requisitos" layoutX="105.0" layoutY="239.0" />
-            <Button fx:id="btCancelar2" layoutX="160.0" layoutY="287.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Cancelar" />
-            <Button fx:id="btGuardar2" layoutX="29.0" layoutY="287.0" mnemonicParsing="false" onAction="#saveNewSW" prefHeight="25.0" prefWidth="72.0" text="Guardar" />
+            <Label layoutX="57.0" layoutY="72.0" text="Nombre" />
+            <Label layoutX="48.0" layoutY="122.0" text="Descripcion" />
+            <Label layoutX="59.0" layoutY="172.0" text="Version" />
+            <Label layoutX="62.0" layoutY="225.0" text="Precio" />
+            <Label layoutX="51.0" layoutY="274.0" text="Requisitos" />
+            <TextField fx:id="nombre" layoutX="124.0" layoutY="68.0" />
+            <TextField fx:id="descripcion" layoutX="124.0" layoutY="118.0" />
+            <TextField fx:id="version" layoutX="124.0" layoutY="168.0" />
+            <TextField fx:id="precio" layoutX="124.0" layoutY="221.0" />
+            <TextField fx:id="requisitos" layoutX="124.0" layoutY="270.0" />
+            <Button fx:id="btCancelar2" layoutX="26.0" layoutY="317.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Cancelar" />
+            <Button fx:id="btGuardar2" layoutX="219.0" layoutY="317.0" mnemonicParsing="false" onAction="#saveNewSW" prefHeight="25.0" prefWidth="72.0" text="Guardar" />
+            <Button fx:id="btAnterior" layoutX="59.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Anterior" />
+            <Button fx:id="btSiguiente" layoutX="190.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Siguiente" />
+            <Button fx:id="btNuevo" layoutX="124.0" layoutY="317.0" mnemonicParsing="false" onAction="#saveNewSW" prefHeight="25.0" prefWidth="72.0" text="Nuevo" />
          </children>
       </Pane>
-      <Pane fx:id="panelInicio" blendMode="DARKEN" layoutX="14.0" layoutY="29.0" prefHeight="350.0" prefWidth="294.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
+      <Pane fx:id="panelInicio" blendMode="DARKEN" layoutX="14.0" layoutY="29.0" prefHeight="350.0" prefWidth="294.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
          <children>
              <Label layoutX="79.0" layoutY="173.0" text="MANEJADOR DE FICHEROS" />
          </children>
@@ -60,6 +87,5 @@
              <Label layoutX="79.0" layoutY="183.0" text="Adil" />
          </children>
       </Pane>
-      
    </children>
 </AnchorPane>
