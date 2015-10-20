@@ -1,4 +1,4 @@
-﻿/*
+/*
     FILE STRUCTURE
  *  private String nombre;
     private String descripcion;

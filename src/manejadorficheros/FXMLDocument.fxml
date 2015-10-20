@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <!--Fecha ultima modificacion: 18/10/2015 -->
 <!--Version: 0.02 -->
 <!--By: Bruno -->
-<?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>

@@ -80,7 +80,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void addFileContent(ActionEvent event){
         try {
-            ta.setText(mf.loadMainFile());
+            //ta.setText(mf.loadMainFile());
         } catch (NullPointerException ex) {
             // TODO: Avisar al usuario mediante el interfaz gráfico
             System.out.println("Se ha cancelado la elección de fichero: " + ex.toString());
@@ -133,8 +133,8 @@ public class FXMLDocumentController implements Initializable {
             
             Software newSW = new Software(nombre.getText(),descripcion.getText(),
                 version.getText(),Double.parseDouble(precio.getText()),requisitos.getText());
-            mf.saveMainFile(newSW);
-            mf.saveMainFileBin(newSW);
+            //mf.saveMainFile(newSW);
+            //mf.saveMainFileBin(newSW);
         }catch(Exception e) {
             System.out.println("Error al crear el objeto software");
         }
@@ -143,7 +143,7 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void saveAllText(ActionEvent event){
-        mf.saveAllFile(ta);
+        //mf.saveAllFile(ta);
         //mf.save
     }
     
