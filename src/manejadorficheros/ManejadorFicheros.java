@@ -229,7 +229,11 @@ public class ManejadorFicheros extends Application {
                 actName = br.readLine();
                 actDescription = br.readLine();
                 actVersion = br.readLine();
-                actPrice = Double.valueOf(br.readLine());
+                //actPrice = Double.valueOf(br.readLine());
+                String st = br.readLine();
+                if (st!=null) {
+                    actPrice = Double.valueOf(st);
+                }
                 actRequirements = br.readLine();
                 
                 if (actName != null){

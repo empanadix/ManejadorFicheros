@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<softwares>
+   <software>
+      <nombre>aaa</nombre>
+      <descripcion>aaa</descripcion>
+      <version>aaa</version>
+      <precio>23.0</precio>
+      <requisitos>aaa</requisitos>
+   </software>
+   <software>
+      <nombre>bbb</nombre>
+      <descripcion>bbb</descripcion>
+      <version>bbb</version>
+      <precio>23.0</precio>
+      <requisitos>bbb</requisitos>
+   </software>
+   <software>
+      <nombre>ccc</nombre>
+      <descripcion>ccc</descripcion>
+      <version>ccc</version>
+      <precio>3.0</precio>
+      <requisitos>ccc</requisitos>
+   </software>
+   <software>
+      <nombre>nuevo</nombre>
+      <descripcion>nuevo</descripcion>
+      <version>nuevo</version>
+      <precio>0.0</precio>
+      <requisitos>nuevo</requisitos>
+   </software>
+   <software>
+      <nombre>nuevo</nombre>
+      <descripcion>nuevo</descripcion>
+      <version>nuevo</version>
+      <precio>3.0</precio>
+      <requisitos>nuevo</requisitos>
+   </software>
+</softwares>

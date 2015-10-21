@@ -14,10 +14,10 @@
          <menus>
             <Menu mnemonicParsing="false" text="Archivo">
                <items>
-                  <MenuItem fx:id="miNuevo" mnemonicParsing="false" onAction="#showNewSW" text="Nuevo" />
-                  <MenuItem fx:id="miMostrar" mnemonicParsing="false" onAction="#showMostrar" text="Abrir" />
-                  <MenuItem fx:id="miGuardar" mnemonicParsing="false" onAction="#saveAllText" text="Guardar" />
-                  <MenuItem mnemonicParsing="false" onAction="#exit" text="Salir" />
+                  <MenuItem fx:id="menuArchivoNuevo" mnemonicParsing="false" onAction="#handleMenuArchivoNuevo" text="Nuevo" />
+                  <MenuItem fx:id="menuArchivoAbrir" mnemonicParsing="false" onAction="#handleMenuArchivoAbrir" text="Abrir" />
+                  <MenuItem fx:id="menuArchivoGuardar" mnemonicParsing="false" onAction="#handleMenuArchivoGuardar" text="Guardar" />
+                  <MenuItem fx:id="menuArchivoSalir" mnemonicParsing="false" onAction="#handleMenuArchivoSalir" text="Salir" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Configuración">
@@ -43,44 +43,44 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Ayuda">
                 <items>
-                    <MenuItem fx:id="miAyudaAcercaDe" mnemonicParsing="false" onAction="#showAcercaDe" text="Acerca de" />
+                    <MenuItem fx:id="menuAyudaAcercaDe" mnemonicParsing="false" onAction="#handleMenuAyudaAcercaDe" text="Acerca de" />
                 </items>
             </Menu>
          </menus>
       </MenuBar>
-      <Pane fx:id="panelMostrar" layoutY="25.0" prefHeight="335.0" prefWidth="320.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
+      <Pane fx:id="paneMostrar" layoutY="25.0" prefHeight="335.0" prefWidth="320.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
          <children>
-            <TextArea fx:id="ta" layoutX="25.0" layoutY="14.0" prefHeight="249.0" prefWidth="261.0" />
-            <Button fx:id="btCancelar" layoutX="156.0" layoutY="283.0" mnemonicParsing="false" onAction="#clearTextArea" text="Cancelar" />
-            <Button fx:id="btGuardar" layoutX="227.0" layoutY="283.0" mnemonicParsing="false" onAction="#saveAllText" text="Guardar" />
-            <Button fx:id="btCagar" layoutX="25.0" layoutY="283.0" mnemonicParsing="false" onAction="#addFileContent" text="Cargar" />
+            <TextArea fx:id="textAreaMostrar" layoutX="25.0" layoutY="14.0" prefHeight="249.0" prefWidth="261.0" />
+            <Button fx:id="buttonMostrarGuardar" layoutX="156.0" layoutY="283.0" mnemonicParsing="false" onAction="#clearTextArea" text="Cancelar" />
+            <Button fx:id="buttonMostrarCancelar" layoutX="227.0" layoutY="283.0" mnemonicParsing="false" onAction="#saveAllText" text="Guardar" />
+            <Button fx:id="buttonMostrarCargar" layoutX="25.0" layoutY="283.0" mnemonicParsing="false" onAction="#addFileContent" text="Cargar" />
          </children>
       </Pane>
-      <Pane fx:id="panelNuevo" blendMode="DARKEN" layoutY="29.0" prefHeight="350.0" prefWidth="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
+      <Pane fx:id="paneSoftware" blendMode="DARKEN" layoutY="29.0" prefHeight="350.0" prefWidth="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
          <children>
             <Label layoutX="57.0" layoutY="72.0" text="Nombre" />
             <Label layoutX="48.0" layoutY="122.0" text="Descripcion" />
             <Label layoutX="59.0" layoutY="172.0" text="Version" />
             <Label layoutX="62.0" layoutY="225.0" text="Precio" />
             <Label layoutX="51.0" layoutY="274.0" text="Requisitos" />
-            <TextField fx:id="nombre" layoutX="124.0" layoutY="68.0" />
-            <TextField fx:id="descripcion" layoutX="124.0" layoutY="118.0" />
-            <TextField fx:id="version" layoutX="124.0" layoutY="168.0" />
-            <TextField fx:id="precio" layoutX="124.0" layoutY="221.0" />
-            <TextField fx:id="requisitos" layoutX="124.0" layoutY="270.0" />
-            <Button fx:id="btCancelar2" layoutX="26.0" layoutY="317.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Cancelar" />
-            <Button fx:id="btGuardar2" layoutX="219.0" layoutY="317.0" mnemonicParsing="false" onAction="#saveNewSW" prefHeight="25.0" prefWidth="72.0" text="Guardar" />
-            <Button fx:id="btAnterior" layoutX="59.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Anterior" />
-            <Button fx:id="btSiguiente" layoutX="190.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Siguiente" />
-            <Button fx:id="btNuevo" layoutX="124.0" layoutY="317.0" mnemonicParsing="false" onAction="#saveNewSW" prefHeight="25.0" prefWidth="72.0" text="Nuevo" />
+            <TextField fx:id="textSoftwareNombre" layoutX="124.0" layoutY="68.0" />
+            <TextField fx:id="textSoftwareDescripcion" layoutX="124.0" layoutY="118.0" />
+            <TextField fx:id="textSoftwareVersion" layoutX="124.0" layoutY="168.0" />
+            <TextField fx:id="textSoftwarePrecio" layoutX="124.0" layoutY="221.0" />
+            <TextField fx:id="textSoftwareRequisitos" layoutX="124.0" layoutY="270.0" />
+            <Button fx:id="buttonSoftwareCancelar" layoutX="26.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleButtonSoftwareCancelar" prefHeight="25.0" prefWidth="72.0" text="Cancelar" />
+            <Button fx:id="buttonSoftwareGuardar" layoutX="219.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleButtonSoftwareGuardar" prefHeight="25.0" prefWidth="72.0" text="Guardar" />
+            <Button fx:id="buttonSoftwareAnterior" layoutX="59.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleButtonSoftwareAnterior" prefHeight="25.0" prefWidth="72.0" text="Anterior" />
+            <Button fx:id="buttonSoftwareSiguiente" layoutX="190.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleButtonSoftwareSiguiente" prefHeight="25.0" prefWidth="72.0" text="Siguiente" />
+            <Button fx:id="buttonSoftwareNuevo" layoutX="124.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleButtonSoftwareNuevo" prefHeight="25.0" prefWidth="72.0" text="Nuevo" />
          </children>
       </Pane>
-      <Pane fx:id="panelInicio" blendMode="DARKEN" layoutX="14.0" layoutY="29.0" prefHeight="350.0" prefWidth="294.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
+      <Pane fx:id="paneInicio" blendMode="DARKEN" layoutX="14.0" layoutY="29.0" prefHeight="350.0" prefWidth="294.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
          <children>
              <Label layoutX="79.0" layoutY="173.0" text="MANEJADOR DE FICHEROS" />
          </children>
       </Pane>
-      <Pane fx:id="panelAcercaDe" blendMode="DARKEN" layoutX="14.0" layoutY="29.0" prefHeight="350.0" prefWidth="294.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
+      <Pane fx:id="paneAcercaDe" blendMode="DARKEN" layoutX="14.0" layoutY="29.0" prefHeight="350.0" prefWidth="294.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
          <children>
              <Label layoutX="79.0" layoutY="123.0" text="MANEJADOR DE FICHEROS 1.0" />
              <Label layoutX="79.0" layoutY="143.0" text="David" />
