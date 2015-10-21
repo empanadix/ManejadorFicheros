@@ -1,7 +1,7 @@
 aaaaaaaaaaaaaahhhh
 ad
 ad
-esta linea produce error por no ser un número
+esta línea produce error por no ser un número
 ad
 ad
 ad
