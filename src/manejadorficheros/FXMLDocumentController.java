@@ -5,7 +5,6 @@
  */
 package manejadorficheros;
 
-import java.awt.event.InputMethodEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -31,7 +30,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
 /**
- * Fecha última modificación: 21/10/2015
+ * Fecha última modificación: 23/10/2015
  * Version: 1.02
  *      -Renovar la clase:
  *          Se han renombrado todos los controles y los manejadores
@@ -69,20 +68,34 @@ import javafx.stage.Window;
  *          setDisableSoftwareControls() activa/desactiva todos los controles relacionados con paneSoftware 
  *          setDisableSoftwarePrimaryControls() activa/desactiva ciertos controles relacionados con paneSoftware
  *      - paneSofware ya funciona correctamente
+ * Version: 1.10
+ *      -Añadidos comentarios especiales para Netbeans para facilitar la organización del código
+ *      -exitManejadorFicheros() para poder reutilizar el método
+ *      -Resetear mySoftwareCounter en openSoftware()
+ *      -Reorganización: Ahora la parte que afecta a la vista está en los handlers y 
+ *       la parte de la lógica en una única función por cada handler
+ *      -newSoftware() se ha eliminado porque ya no es necesario
+ *      -Captura de excepciones mejorada
  *      -TODO: 
  *          utilizar las opciones del menú configuración
  *          probar que Guardar como funciona correctamente cuando esté disponible
  *          añadir opción en el menú para utilizar el paneMostrar de la primera versión
+ *          ¿mostrar contadorSofware?
+ * 
+ * 
  * @author Adil Casamayor Silvar
  */
 public class FXMLDocumentController implements Initializable, ChangeListener  {
     
+    // <editor-fold defaultstate="collapsed" desc="VARIABLES DECLARATION">
     Window primaryStage = null;
     private List<Software> mySoftware = null;
     private int mySoftwareCounter = 0;
     private String fileName = "";  // Se utilizará para la opción guardar
-    private ManejadorFicheros fileHandler;
+    private ManejadorFicheros fileHandler = null;
+    // </editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="@FXML CONTROLS DECLARATION">
     @FXML
     private MenuItem menuArchivoNuevo;
     @FXML
@@ -130,7 +143,9 @@ public class FXMLDocumentController implements Initializable, ChangeListener  {
     private Button buttonSoftwareSiguiente;
     @FXML
     private Button buttonSoftwareNuevo;
+    // </editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="IMPLEMENTED METHODS">
     @Override
     public void changed(ObservableValue observable, Object oldValue, Object newValue) {
         
@@ -151,7 +166,6 @@ public class FXMLDocumentController implements Initializable, ChangeListener  {
         }
     }
     
-    // INITIALIZE METHODS
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         fileHandler = new ManejadorFicheros();
@@ -160,7 +174,9 @@ public class FXMLDocumentController implements Initializable, ChangeListener  {
         initPanes();
         showPane(paneInicio);
     }
+    // </editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="INITIALIZE METHODS">
     private void initMenu(){
         menuArchivoGuardar.setDisable(true);
     }
@@ -188,33 +204,50 @@ public class FXMLDocumentController implements Initializable, ChangeListener  {
         textSoftwarePrecio.textProperty().addListener(this);
         textSoftwareRequisitos.textProperty().addListener(this);
     }
-       
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="@FXML HANDLERS">
     // MENU ARCHIVO HANDLERS
     @FXML
     private void handleMenuArchivoNuevo(ActionEvent event){
-        newSoftware();
+        clearPaneSoftware();
+        setDisableSoftwareControls(true);
+        buttonSoftwareCancelar.setDisable(false);
+        showPane(paneSoftware);
     }
     
     @FXML
     private void handleMenuArchivoAbrir(ActionEvent event){
-        openSoftware();
+        if (openSoftware()) {
+            updatePaneSoftware(mySoftware.get(0));
+            setDisableSoftwareControls(true);
+            setDisableSoftwarePrimaryControls(false);
+            showPane(paneSoftware);
+        }
     }
     
     @FXML
     private void handleMenuArchivoGuardar(ActionEvent event){
-        saveSoftware();
-        //saveSoftwareAs();
+        //saveSoftwareAs()
+        if (saveSoftware()) {
+            setDisableSoftwareControls(true);
+            setDisableSoftwarePrimaryControls(false);
+        }        
     }
     
     @FXML
     private void handleMenuArchivoGuardarComo(ActionEvent event){
-        saveSoftwareAs();
+        if (saveSoftwareAs()) {
+            setDisableSoftwareControls(true);
+            setDisableSoftwarePrimaryControls(false);            
+        }
     }
     
     @FXML
     private void handleMenuArchivoSalir(ActionEvent event){
-        Platform.exit();
-        System.exit(0);
+        if (!exitManejadorFicheros()) {
+            //TODO:
+        }
     }
     
     // MENU CONFIGURACION HANDLERS
@@ -230,8 +263,8 @@ public class FXMLDocumentController implements Initializable, ChangeListener  {
     @FXML
     private void handleButtonSoftwareCancelar(ActionEvent event){
         if (mySoftware==null || mySoftware.isEmpty()) {
-            setDisableSoftwareControls(true);
             clearPaneSoftware();
+            setDisableSoftwareControls(true);
             showPane(paneInicio);
         } else {
             updatePaneSoftware(mySoftware.get(mySoftwareCounter));
@@ -244,52 +277,41 @@ public class FXMLDocumentController implements Initializable, ChangeListener  {
     
     @FXML
     private void handleButtonSoftwareGuardar(ActionEvent event){
-        saveSoftware();
+        if (saveSoftware()) {
+            setDisableSoftwareControls(true);
+            setDisableSoftwarePrimaryControls(false);
+        }
     }
     
     @FXML
     private void handleButtonSoftwareAnterior(ActionEvent event){
-        if (mySoftwareCounter > 0) {
-            mySoftwareCounter--;
-        } else {
-            mySoftwareCounter=mySoftware.size()-1;
-        }
-        updatePaneSoftware(mySoftware.get(mySoftwareCounter));
-        
+        backwardSoftware();
+        updatePaneSoftware(mySoftware.get(mySoftwareCounter));       
         setDisableSoftwareControls(true);
         setDisableSoftwarePrimaryControls(false);
     }
     
     @FXML
     private void handleButtonSoftwareSiguiente(ActionEvent event){
-        if (mySoftwareCounter < mySoftware.size()-1) {
-            mySoftwareCounter++;
-        } else {
-            mySoftwareCounter=0;
-        }
-        updatePaneSoftware(mySoftware.get(mySoftwareCounter));
-        
+        forwardSoftware();
+        updatePaneSoftware(mySoftware.get(mySoftwareCounter));        
         setDisableSoftwareControls(true);
         setDisableSoftwarePrimaryControls(false);
     }
     
     @FXML
     private void handleButtonSoftwareNuevo(ActionEvent event){
-        newSoftware();        
+        clearPaneSoftware();
+        setDisableSoftwareControls(true);        
         buttonSoftwareAnterior.setDisable(false);
         buttonSoftwareSiguiente.setDisable(false);
-    }
-    
-    
-    // HANDLE MAIN PRIVATE METHODS    
-    private void newSoftware(){
-        clearPaneSoftware();
-        setDisableSoftwareControls(true);
         buttonSoftwareCancelar.setDisable(false);
         showPane(paneSoftware);
     }
+    // </editor-fold>
     
-    private void openSoftware(){
+    // <editor-fold defaultstate="collapsed" desc="HANDLERS MAIN PRIVATE METHODS">    
+    private boolean openSoftware(){
         try {
             // Cargar archivo
             mySoftware = openFile();
@@ -298,20 +320,13 @@ public class FXMLDocumentController implements Initializable, ChangeListener  {
             if (mySoftware.isEmpty()) {
                 throw new IndexOutOfBoundsException("El archivo está vacio o no se pudo leer");
             }
-            updatePaneSoftware(mySoftware.get(0));
-            
-            //
-            setDisableSoftwareControls(true);
-            setDisableSoftwarePrimaryControls(false);
-            
-            // Mostrar panel sí se cargó el archivo
-            showPane(paneSoftware);
-            
+            mySoftwareCounter=0;
             // Cambia el comportamiento del botón Guardar del menú Archivo            
             /*
             menuArchivoGuardar.setOnAction((ActionEvent e) -> {
                 //TODO:
             });*/
+            return true;
         } catch (IOException ex) {
             // "Error accediendo al archivo"            
             showExceptionAlert("IOException", ex.getMessage());
@@ -337,50 +352,112 @@ public class FXMLDocumentController implements Initializable, ChangeListener  {
             showExceptionAlert("Exception", ex.getMessage());
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
     
-    private void saveSoftware(){
+    private boolean saveSoftware(){
+        if (fileName.equals("")) {
+            throw new NullPointerException("No se ha especificado un nombre de archivo");
+        }
         try {
-            if (fileName.equals("")) {
-                throw new NullPointerException("No se ha especificado un nombre de archivo");
-            }
             File file = new File(fileName);
             if (file==null) {
-                throw new NullPointerException("La ruta o el nombre del archivo no es válido");
+                throw new NullPointerException("Ruta o nombre de archivo no válido");
             }
             chooseMethodAndSave(file);
-            setDisableSoftwareControls(true);
-            setDisableSoftwarePrimaryControls(false);
+            return true;
+        } catch (IOException ex) {
+            // "Error accediendo al archivo"            
+            showExceptionAlert("IOException", ex.getMessage());
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException ex) {
             showExceptionAlert("NullPointerException", ex.getMessage());
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IndexOutOfBoundsException ex) {
+            showExceptionAlert("IndexOutOfBoundsException", ex.getMessage());
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);        
+        } catch (NumberFormatException ex) {
+            // Hereda de IllegalArgumentException
+            // "Error de formato en un campo de tipo numérico"
+            showExceptionAlert("NumberFormatException", ex.getMessage());
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
+            // Sirve para las validaciones de los campos de texto
+            // "Error de formato en un campo de tipo texto"
+            showExceptionAlert("IllegalArgumentException", ex.getMessage());
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             // "Error desconocido"
             showExceptionAlert("Exception", ex.getMessage());
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
     
-    private void saveSoftwareAs(){
+    private boolean saveSoftwareAs(){
         try {
             File file = chooseFileToSave();
             if (file==null) {
                 throw new NullPointerException("Se ha cancelado la elección de fichero");
             }
             chooseMethodAndSave(file);
-            setDisableSoftwareControls(true);
-            setDisableSoftwarePrimaryControls(false);
+            return true;
+        } catch (IOException ex) {
+            // "Error accediendo al archivo"            
+            showExceptionAlert("IOException", ex.getMessage());
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException ex) {
             showExceptionAlert("NullPointerException", ex.getMessage());
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IndexOutOfBoundsException ex) {
+            showExceptionAlert("IndexOutOfBoundsException", ex.getMessage());
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);        
+        } catch (NumberFormatException ex) {
+            // Hereda de IllegalArgumentException
+            // "Error de formato en un campo de tipo numérico"
+            showExceptionAlert("NumberFormatException", ex.getMessage());
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
+            // Sirve para las validaciones de los campos de texto
+            // "Error de formato en un campo de tipo texto"
+            showExceptionAlert("IllegalArgumentException", ex.getMessage());
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             // "Error desconocido"
             showExceptionAlert("Exception", ex.getMessage());
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
     
-    // VIEW PRIVATE METHODS    
+    private void backwardSoftware(){
+        if (mySoftwareCounter > 0) {
+            mySoftwareCounter--;
+        } else {
+            mySoftwareCounter=mySoftware.size()-1;
+        }
+    }
+    
+    private void forwardSoftware(){
+        if (mySoftwareCounter < mySoftware.size()-1) {
+            mySoftwareCounter++;
+        } else {
+            mySoftwareCounter=0;
+        }        
+    }
+    
+    private boolean exitManejadorFicheros() {
+        boolean confirmDialog = true; //TODO: sustituir por diálogo de confirmación
+        if (confirmDialog) {
+            Platform.exit();
+            System.exit(0);
+        }
+        return false;
+    }
+    
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="VIEW PRIVATE METHODS">
     private void updatePaneSoftware(Software newSoftware){
         textSoftwareNombre.setText(newSoftware.getNombre());
         textSoftwareDescripcion.setText(newSoftware.getDescripcion());
@@ -423,8 +500,9 @@ public class FXMLDocumentController implements Initializable, ChangeListener  {
         buttonSoftwareSiguiente.setDisable(disable);
         buttonSoftwareNuevo.setDisable(disable);
     }
+    // </editor-fold>
     
-    // PRIVATE METHODS
+    // <editor-fold defaultstate="collapsed" desc="PRIVATE METHODS">
     private FileChooser getFileChooser(){
         File workingDirectory = new File(System.getProperty("user.dir"));
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
@@ -463,12 +541,20 @@ public class FXMLDocumentController implements Initializable, ChangeListener  {
                 return fileHandler.loadDOM(file);
             default:
                 fileName = previusFileName;  // Deshacemos los cambios
-                System.out.println("Extensión de archivo desconocida");
                 throw new NullPointerException("Extensión de archivo desconocida");
         }
     }
 
-    private void chooseMethodAndSave(File file){
+    private void chooseMethodAndSave(File file) throws Exception, NullPointerException, IndexOutOfBoundsException{
+        if (file==null) {
+            throw new NullPointerException("Ruta o nombre de archivo no válido");
+        }
+        if (mySoftware==null) {
+            throw new NullPointerException("No hay datos para guardar");
+        }
+        if (mySoftware.isEmpty()) {
+            throw new IndexOutOfBoundsException("No hay datos para guardar");
+        }
         String previusFileName = fileName;
         fileName = file.getName();
         String extension = fileName.substring(fileName.lastIndexOf("."));
@@ -484,9 +570,7 @@ public class FXMLDocumentController implements Initializable, ChangeListener  {
                 break;
             default:
                 fileName = previusFileName;  // Deshacemos los cambios
-                System.out.println("chooseMethodAndSave: Extensión de archivo desconocida");
-                //throw new Exception("Extensión de archivo desconocida");
-                break;
+                throw new NullPointerException("Extensión de archivo desconocida");
         }
     }
     
@@ -519,11 +603,9 @@ public class FXMLDocumentController implements Initializable, ChangeListener  {
             System.out.println();
         }
     }
+    // </editor-fold>
     
-    
-    
-    
-    
+    // <editor-fold defaultstate="collapsed" desc="DEPRECATED METHODS">
     // HANDLERS
     // TODO: modificar o borrar estos handlers
     @FXML
@@ -585,6 +667,6 @@ public class FXMLDocumentController implements Initializable, ChangeListener  {
     private void clearTextArea(ActionEvent event){
         textAreaMostrar.clear();
     }
-
+    // </editor-fold>
     
 }
