@@ -1,3 +1,2 @@
 # ManejadorFicheros
-Rama para modificar el controlador
-ola Hamijos!!!
+Rama para tener una copia de seguridad de la segunda versión
