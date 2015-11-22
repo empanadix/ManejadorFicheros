@@ -59,14 +59,22 @@ import org.xml.sax.SAXException;
  * @author David Caamaño Aldemunde
  */
 public class ManejadorFicheros extends Application {
+     
+    double prefWidth=406.0;
+    double prefHeight=469.0;
     
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root);   
         
         stage.setScene(scene);
+        stage.setMinHeight(prefHeight);
+        stage.setMinWidth(prefWidth);
+        stage.setMaxHeight(prefHeight);
+        stage.setMaxWidth(prefWidth);
+        
         stage.show();
     }
 
@@ -364,6 +372,7 @@ public class ManejadorFicheros extends Application {
         }
         return value;
     }
+    
     public void saveDOM(List<Software> lSw,File act){
 
         try {
@@ -428,5 +437,30 @@ public class ManejadorFicheros extends Application {
             System.out.println("ERROR: No se ha podido crear la salida del documento XML\n"+ex.getMessage());
             ex.printStackTrace();
         }
+    }
+    
+    
+    
+    //////////////////////SAX LOAD LIST<SOFTWARE>//////////////////////////
+    public List<Software> loadSAX(File act){
+        List<Software> toReturn = new ArrayList<>();
+        
+        GestionarSAX gesSAX;
+        gesSAX = new GestionarSAX();
+        gesSAX.abrir_XML_SAX(act);
+        
+        toReturn = gesSAX.obtenerSAX();
+        /*
+        if (gesSAX.abrir_XML_SAX(act)==-1)
+        {
+            System.out.println("Error al abrir el archivo para SAX");
+        }
+        else
+        {
+            System.out.println("¡Ya se ha abierto el archivo para SAX!");
+        }*/
+        
+
+        return toReturn;
     }
 }

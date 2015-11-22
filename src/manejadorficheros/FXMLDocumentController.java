@@ -23,8 +23,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
@@ -106,6 +108,11 @@ public class FXMLDocumentController implements Initializable, ChangeListener  {
     private MenuItem menuAyudaAcercaDe;
     
     @FXML
+    private RadioMenuItem menuConfiguracionLeerDOM;
+    @FXML
+    private RadioMenuItem menuConfiguracionLeerSAX;
+    
+    @FXML
     private Pane paneInicio;
     @FXML
     private Pane paneAcercaDe;
@@ -179,6 +186,10 @@ public class FXMLDocumentController implements Initializable, ChangeListener  {
     // <editor-fold defaultstate="collapsed" desc="INITIALIZE METHODS">
     private void initMenu(){
         menuArchivoGuardar.setDisable(true);
+        ToggleGroup toggleGroup = new ToggleGroup();
+        menuConfiguracionLeerDOM.setToggleGroup(toggleGroup);
+        menuConfiguracionLeerSAX.setToggleGroup(toggleGroup);
+        menuConfiguracionLeerDOM.setSelected(true);
     }
     
     private void initPanes(){
@@ -538,7 +549,13 @@ public class FXMLDocumentController implements Initializable, ChangeListener  {
             case ".bin":
                 return fileHandler.loadBIN(file);
             case ".xml":
-                return fileHandler.loadDOM(file);
+                if (menuConfiguracionLeerDOM.isSelected()) {
+                    return fileHandler.loadDOM(file);
+                } else if (menuConfiguracionLeerSAX.isSelected()) {
+                    return fileHandler.loadSAX(file);
+                } else {
+                    throw new NullPointerException("Método de lectura XML desconocido");
+                }
             default:
                 fileName = previusFileName;  // Deshacemos los cambios
                 throw new NullPointerException("Extensión de archivo desconocida");

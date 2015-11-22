@@ -5,12 +5,13 @@
 <!--By: Bruno -->
 
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="391.0" prefWidth="320" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="manejadorficheros.FXMLDocumentController">
+<AnchorPane id="AnchorPane" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="manejadorficheros.FXMLDocumentController">
    <children>
-      <MenuBar layoutY="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <MenuBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <menus>
             <Menu mnemonicParsing="false" text="Archivo">
                <items>
@@ -22,22 +23,11 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Configuración">
                <items>
-                  <Menu mnemonicParsing="false" text="Leer como...">
+                  <Menu mnemonicParsing="false" text="Leer XML como...">
                     <items>
-                        <RadioMenuItem mnemonicParsing="false" selected="true" text="Leer texto plano" />
-                        <RadioMenuItem mnemonicParsing="false" text="Leer texto binario" />
-                        <RadioMenuItem mnemonicParsing="false" text="Leer texto  XML SAX" />
-                        <RadioMenuItem mnemonicParsing="false" text="Leer texto  XML DOM" />
-                        <RadioMenuItem mnemonicParsing="false" text="Leer de BBDD" />
+                        <RadioMenuItem fx:id="menuConfiguracionLeerDOM" mnemonicParsing="false" text="Leer XML como DOM" />
+                        <RadioMenuItem fx:id="menuConfiguracionLeerSAX" mnemonicParsing="false" text="Leer  XML como SAX" />
                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Leer como...">
-                     <items>
-                        <RadioMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                        <RadioMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                        <RadioMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                        <RadioMenuItem mnemonicParsing="false" text="Unspecified Action" />
-                     </items>
                   </Menu>
                </items>
             </Menu>
@@ -48,45 +38,134 @@
             </Menu>
          </menus>
       </MenuBar>
-      <Pane fx:id="paneMostrar" layoutY="25.0" prefHeight="335.0" prefWidth="320.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
+      <Pane fx:id="paneMostrar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="36.0">
          <children>
-            <TextArea fx:id="textAreaMostrar" layoutX="25.0" layoutY="14.0" prefHeight="249.0" prefWidth="261.0" />
-            <Button fx:id="buttonMostrarGuardar" layoutX="156.0" layoutY="283.0" mnemonicParsing="false" onAction="#clearTextArea" text="Cancelar" />
-            <Button fx:id="buttonMostrarCancelar" layoutX="227.0" layoutY="283.0" mnemonicParsing="false" onAction="#saveAllText" text="Guardar" />
-            <Button fx:id="buttonMostrarCargar" layoutX="25.0" layoutY="283.0" mnemonicParsing="false" onAction="#addFileContent" text="Cargar" />
+            <TextArea fx:id="textAreaMostrar" layoutX="63.0" layoutY="36.0" prefHeight="249.0" prefWidth="261.0" />
+            <Button fx:id="buttonMostrarGuardar" layoutX="151.0" layoutY="306.0" mnemonicParsing="false" onAction="#clearTextArea" text="Cancelar" />
+            <Button fx:id="buttonMostrarCancelar" layoutX="285.0" layoutY="306.0" mnemonicParsing="false" onAction="#saveAllText" text="Guardar" />
+            <Button fx:id="buttonMostrarCargar" layoutX="24.0" layoutY="306.0" mnemonicParsing="false" onAction="#addFileContent" text="Cargar" />
          </children>
       </Pane>
-      <Pane fx:id="paneSoftware" blendMode="DARKEN" layoutY="29.0" prefHeight="350.0" prefWidth="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
+      <Pane fx:id="paneSoftware" blendMode="DARKEN" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="36.0">
          <children>
-            <Label layoutX="57.0" layoutY="72.0" text="Nombre" />
-            <Label layoutX="48.0" layoutY="122.0" text="Descripcion" />
-            <Label layoutX="59.0" layoutY="172.0" text="Version" />
-            <Label layoutX="62.0" layoutY="225.0" text="Precio" />
-            <Label layoutX="51.0" layoutY="274.0" text="Requisitos" />
-            <TextField fx:id="textSoftwareNombre" layoutX="124.0" layoutY="68.0" />
-            <TextField fx:id="textSoftwareDescripcion" layoutX="124.0" layoutY="118.0" />
-            <TextField fx:id="textSoftwareVersion" layoutX="124.0" layoutY="168.0" />
-            <TextField fx:id="textSoftwarePrecio" layoutX="124.0" layoutY="221.0" />
-            <TextField fx:id="textSoftwareRequisitos" layoutX="124.0" layoutY="270.0" />
-            <Button fx:id="buttonSoftwareCancelar" layoutX="26.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleButtonSoftwareCancelar" prefHeight="25.0" prefWidth="72.0" text="Cancelar" />
-            <Button fx:id="buttonSoftwareGuardar" layoutX="219.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleButtonSoftwareGuardar" prefHeight="25.0" prefWidth="72.0" text="Guardar" />
-            <Button fx:id="buttonSoftwareAnterior" layoutX="59.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleButtonSoftwareAnterior" prefHeight="25.0" prefWidth="72.0" text="Anterior" />
-            <Button fx:id="buttonSoftwareSiguiente" layoutX="190.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleButtonSoftwareSiguiente" prefHeight="25.0" prefWidth="72.0" text="Siguiente" />
-            <Button fx:id="buttonSoftwareNuevo" layoutX="124.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleButtonSoftwareNuevo" prefHeight="25.0" prefWidth="72.0" text="Nuevo" />
+            <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="buttonSoftwareAnterior" layoutX="59.0" layoutY="23.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonSoftwareAnterior" text="Anterior" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </padding>
+                        </Button>
+                        <Button fx:id="buttonSoftwareSiguiente" layoutX="190.0" layoutY="23.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonSoftwareSiguiente" text="Siguiente" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </padding>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutY="37.0" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox layoutX="48.0" layoutY="72.0" maxHeight="1.7976931348623157E308" spacing="4.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label layoutX="57.0" layoutY="72.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Nombre" VBox.vgrow="ALWAYS" />
+                              <Label layoutX="48.0" layoutY="122.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Descripcion" VBox.vgrow="ALWAYS" />
+                              <Label layoutX="59.0" layoutY="172.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Version" VBox.vgrow="ALWAYS" />
+                              <Label layoutX="62.0" layoutY="225.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Precio" VBox.vgrow="ALWAYS" />
+                              <Label layoutX="51.0" layoutY="274.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Requisitos" VBox.vgrow="ALWAYS" />
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </padding>
+                        </VBox>
+                        <VBox layoutX="124.0" layoutY="68.0" maxHeight="1.7976931348623157E308" spacing="4.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <TextField fx:id="textSoftwareNombre" layoutX="124.0" layoutY="68.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                              <TextField fx:id="textSoftwareDescripcion" layoutX="124.0" layoutY="118.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                              <TextField fx:id="textSoftwareVersion" layoutX="124.0" layoutY="168.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                              <TextField fx:id="textSoftwarePrecio" layoutX="124.0" layoutY="221.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                              <TextField fx:id="textSoftwareRequisitos" layoutX="124.0" layoutY="270.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutY="222.0" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="buttonSoftwareCancelar" layoutX="26.0" layoutY="317.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonSoftwareCancelar" text="Cancelar" HBox.hgrow="ALWAYS">
+                           <padding>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="buttonSoftwareNuevo" layoutX="124.0" layoutY="317.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonSoftwareNuevo" text="Nuevo" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </padding>
+                        </Button>
+                        <Button fx:id="buttonSoftwareGuardar" layoutX="219.0" layoutY="317.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleButtonSoftwareGuardar" text="Guardar" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </padding>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+               </padding>
+            </VBox>
          </children>
       </Pane>
-      <Pane fx:id="paneInicio" blendMode="DARKEN" layoutX="14.0" layoutY="29.0" prefHeight="350.0" prefWidth="294.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
+      <Pane fx:id="paneInicio" blendMode="DARKEN" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="36.0">
          <children>
-             <Label layoutX="79.0" layoutY="173.0" text="MANEJADOR DE FICHEROS" />
+             <Label layoutX="97.0" layoutY="181.0" text="MANEJADOR DE FICHEROS" />
          </children>
       </Pane>
-      <Pane fx:id="paneAcercaDe" blendMode="DARKEN" layoutX="14.0" layoutY="29.0" prefHeight="350.0" prefWidth="294.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
+      <Pane fx:id="paneAcercaDe" blendMode="DARKEN" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="36.0">
          <children>
-             <Label layoutX="79.0" layoutY="123.0" text="MANEJADOR DE FICHEROS 1.0" />
-             <Label layoutX="79.0" layoutY="143.0" text="David" />
-             <Label layoutX="79.0" layoutY="163.0" text="Bruno" />
-             <Label layoutX="79.0" layoutY="183.0" text="Adil" />
+             <Label layoutX="84.0" layoutY="151.0" text="MANEJADOR DE FICHEROS 1.0" />
+             <Label layoutX="84.0" layoutY="171.0" text="David" />
+             <Label layoutX="84.0" layoutY="191.0" text="Bruno" />
+             <Label layoutX="84.0" layoutY="211.0" text="Adil" />
          </children>
       </Pane>
    </children>
+   <padding>
+      <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+   </padding>
 </AnchorPane>
